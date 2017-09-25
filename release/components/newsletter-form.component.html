@@ -1,0 +1,41 @@
+<section class="newsletter-form">
+
+    <div class="outer">
+
+        <div class="inner">
+
+            <form novalidate target="_blank" [hidden]="hidden" (ngSubmit)="onSubmit($event)" [formGroup]="emailInput" [action]="formAction" enctype="application/x-www-form-urlencoded" [method]="formMethod" name="newsletter" accept-charset="utf8" >
+
+                <h2>{{ 'Newsletter form headline' | translate }}</h2>
+
+                <p class="form-busy" *ngIf="sending">
+                    {{ 'Newsletter form sending' | translate }}
+                </p>
+
+                <div class="form-input" *ngIf="!sent && !sending">
+                    <input type="email" formControlName="email" [placeholder]="'Newsletter email placeholder' | translate">
+                    <button
+                    type="submit"
+                    [disabled]="emailInput.pristine || (emailInput.status === 'INVALID')"
+                    name="submit-button">{{ 'Newsletter submit button' | translate }}</button>
+                </div>
+
+                <div class="form-error" *ngIf="!emailInput.pristine">
+                    <p class="error invalid-email" *ngIf="emailInput.status === 'INVALID'">
+                        {{ 'Newsletter invalid email message' | translate }}
+                    </p>
+                </div>
+
+                <div class="form-success" *ngIf="sent">
+                    <p>
+                        {{ 'Newsletter sent message' | translate }}
+                    </p>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
