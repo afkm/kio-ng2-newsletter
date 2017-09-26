@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/delay'
 
 import { Component, Inject, AfterViewInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
