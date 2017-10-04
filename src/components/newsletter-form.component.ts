@@ -1,4 +1,4 @@
-
+import 'rxjs/add/operator/delay'
 import { Component, Inject, AfterViewInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { NEWSLETTER_CONFIG } from '../config/token'
@@ -9,8 +9,7 @@ import { NewsletterFormState } from '../enums/form-state.enum'
 
 @Component({
   selector: 'newsletter-form',
-  templateUrl: './newsletter-form.component.html',
-  styleUrls: ['./newsletter-form.component.scss']
+  templateUrl: './newsletter-form.component.html'
 })
 export class NewsletterFormComponent implements AfterViewInit {
 
@@ -86,7 +85,7 @@ export class NewsletterFormComponent implements AfterViewInit {
 
   private localeSubscription=this.localeService.changes.startWith(this.localeService.current)
   .delay(5000)
-  .subscribe ( locale => {
+  .subscribe ( (locale:string) => {
     this.updateLocale(locale)
   } )
 

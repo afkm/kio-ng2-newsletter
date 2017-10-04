@@ -73,8 +73,7 @@ var NewsletterFormComponent = /** @class */ (function () {
     NewsletterFormComponent.decorators = [
         { type: Component, args: [{
                     selector: 'newsletter-form',
-                    templateUrl: './newsletter-form.component.html',
-                    styleUrls: ['./newsletter-form.component.css']
+                    templateUrl: './newsletter-form.component.html'
                 },] },
     ];
     /** @nocollapse */
