@@ -1,6 +1,10 @@
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/delay';
 import { AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NewsletterConfig, NewsletterData } from '../config/interfaces';
 import { LocaleService } from 'kio-ng2-i18n';
 import { Http } from '@angular/http';
@@ -9,12 +13,14 @@ export declare class NewsletterFormComponent implements AfterViewInit {
     protected http: Http;
     protected localeService: LocaleService;
     protected newsletterConfig: NewsletterConfig;
-    constructor(formBuilder: FormBuilder, http: Http, localeService: LocaleService, newsletterConfig: NewsletterConfig);
+    private router;
+    constructor(formBuilder: FormBuilder, http: Http, localeService: LocaleService, newsletterConfig: NewsletterConfig, router: Router);
     sending: boolean;
     sent: boolean;
     formAction: string;
     formMethod: "POST" | "GET";
     hidden: boolean;
+    isNavigating: Observable<boolean>;
     email: string;
     error: string;
     emailInput: FormGroup;

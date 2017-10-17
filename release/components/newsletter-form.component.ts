@@ -1,6 +1,11 @@
+import { Observable } from 'rxjs/Observable'
+import 'rxjs/add/operator/filter'
+import 'rxjs/add/operator/concatMap'
 import 'rxjs/add/operator/delay'
+
 import { Component, Inject, AfterViewInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Router, NavigationStart, NavigationEnd } from '@angular/router'
 import { NEWSLETTER_CONFIG } from '../config/token'
 import { NewsletterConfig, NewsletterData } from '../config/interfaces'
 import { LocaleService } from 'kio-ng2-i18n'
@@ -17,7 +22,8 @@ export class NewsletterFormComponent implements AfterViewInit {
     protected formBuilder:FormBuilder,
     protected http:Http,
     protected localeService:LocaleService,
-    @Inject(NEWSLETTER_CONFIG) protected newsletterConfig:NewsletterConfig
+    @Inject(NEWSLETTER_CONFIG) protected newsletterConfig:NewsletterConfig,
+    private router:Router
     ){
 
   }
@@ -28,6 +34,16 @@ export class NewsletterFormComponent implements AfterViewInit {
   public formAction=this.newsletterConfig.formAction
   public formMethod=this.newsletterConfig.method
   public hidden:boolean=true
+  public isNavigating:Observable<boolean>=this.router.events.filter ( (event:any) => {
+    return ( event instanceof NavigationEnd ) || ( event instanceof NavigationStart )
+  }  ).concatMap ( (event:NavigationStart|NavigationEnd) => {
+    if ( event instanceof NavigationStart ) {
+      return Observable.of(true)
+    } else {
+      return Observable.of(false).delay(500)
+    }
+  } )
+
   public email:string
   public error:string
   public emailInput=this.buildFormGroup()
@@ -37,7 +53,7 @@ export class NewsletterFormComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(){
-    
+
   }
 
   protected buildFormGroup () {
