@@ -1,6 +1,6 @@
 {
   "name": "kio-ng2-newsletter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Newsletter component",
   "main": "./release/newsletter.module",
   "module": "./release/newsletter.module",
