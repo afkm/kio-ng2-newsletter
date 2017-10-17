@@ -6,24 +6,39 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/delay';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { NEWSLETTER_CONFIG } from '../config/token';
 import { LocaleService } from 'kio-ng2-i18n';
 import { Http } from '@angular/http';
 var NewsletterFormComponent = /** @class */ (function () {
-    function NewsletterFormComponent(formBuilder, http, localeService, newsletterConfig) {
+    function NewsletterFormComponent(formBuilder, http, localeService, newsletterConfig, router) {
         var _this = this;
         this.formBuilder = formBuilder;
         this.http = http;
         this.localeService = localeService;
         this.newsletterConfig = newsletterConfig;
+        this.router = router;
         this.sending = false;
         this.sent = false;
         this.formAction = this.newsletterConfig.formAction;
         this.formMethod = this.newsletterConfig.method;
         this.hidden = true;
+        this.isNavigating = this.router.events.filter(function (event) {
+            return (event instanceof NavigationEnd) || (event instanceof NavigationStart);
+        }).concatMap(function (event) {
+            if (event instanceof NavigationStart) {
+                return Observable.of(true);
+            }
+            else {
+                return Observable.of(false).delay(500);
+            }
+        });
         this.emailInput = this.buildFormGroup();
         this.localeSubscription = this.localeService.changes.startWith(this.localeService.current)
             .delay(5000)
@@ -82,6 +97,7 @@ var NewsletterFormComponent = /** @class */ (function () {
         { type: Http, },
         { type: LocaleService, },
         { type: undefined, decorators: [{ type: Inject, args: [NEWSLETTER_CONFIG,] },] },
+        { type: Router, },
     ]; };
     return NewsletterFormComponent;
 }());

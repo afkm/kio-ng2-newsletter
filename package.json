@@ -18,12 +18,14 @@
     "transpile": "npm run ngModule:build",
     "ngModule:build": "./scripts/ngModule.sh build",
     "ngModule:copy_build": "./scripts/ngModule.sh copy_build",
-    "ngModule:copy": "./scripts/sync_to.sh ../../digit-wmr",
+    "sync:wmr": "./scripts/sync_to.sh ../../digit-wmr",
+    "sync:rfn": "./scripts/sync_to.sh ../../digit-rfn",
     "fetchdeps": "echo ./scripts/sync_kio_module.sh component-routing ctn i18n",
     "build": "npm run ngModule:copy_build && npm run sass:build && npm run ngModule:build",
-    "build:dev": "npm run fetchdeps && NODE_ENV=production npm run build",
+    "build:dev": "NODE_ENV=production npm run build && npm run sync:rfn",
     "build:release": "NODE_ENV=production npm run build",
-    "build:release:watch": "./scripts/watch.sh build:release"
+    "build:release:watch": "./scripts/watch.sh build:release",
+    "build:dev:watch": "./scripts/watch.sh build:dev"
   },
   "peerDependencies": {
     "@angular/compiler-cli": "^4.2.3",
