@@ -9,7 +9,7 @@ import { Router, NavigationStart, NavigationEnd } from '@angular/router'
 import { NEWSLETTER_CONFIG } from '../config/token'
 import { NewsletterConfig, NewsletterData } from '../config/interfaces'
 import { LocaleService } from 'kio-ng2-i18n'
-import { Http } from '@angular/http'
+import { Http, Headers } from '@angular/http'
 import { NewsletterFormState } from '../enums/form-state.enum'
 
 @Component({
@@ -80,7 +80,13 @@ export class NewsletterFormComponent implements AfterViewInit {
     this.sending = true
     const data = this.formatData()
     //console.log('send data: ', data )
-    this.http.post ( this.newsletterConfig.formAction, data ).subscribe ( result => {
+    const h:Headers = new Headers()
+    //h.append('Accept','q=0.8;application/json;q=0.9')
+    h.append( 'Content-Type', 'application/x-www-form-urlencoded')
+    this.http.post(this.newsletterConfig.formAction, data, {
+      headers: h
+    })
+    .subscribe ( result => {
       this.sending = false
       this.sent = true
     }, error => {

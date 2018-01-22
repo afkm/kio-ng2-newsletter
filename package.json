@@ -2,9 +2,9 @@
   "name": "kio-ng2-newsletter",
   "version": "0.0.4",
   "description": "Newsletter component",
-  "main": "./release/newsletter.module",
-  "module": "./release/newsletter.module",
-  "typings": "./release/newsletter.module.d.ts",
+  "main": "./src/newsletter.module",
+  "module": "./src/newsletter.module",
+  "typings": "./src/newsletter.module.ts",
   "scripts": {
     "test": "ts-mocha ./src/**/*.spec.ts",
     "pretest": "npm run build",
@@ -81,5 +81,5 @@
   "dependencies": {},
   "keywords": [],
   "author": "Matthias Buchholz <mb@averagejoe.de>",
-  "license": "ISC"  
+  "license": "ISC"
 }
